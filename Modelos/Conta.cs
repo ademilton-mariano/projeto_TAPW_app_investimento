@@ -6,5 +6,8 @@
         public string Numero { get; set; }
         public double? Saldo { get; set; }
         public bool Ativa { get; set; }
+        public UsuarioCliente UsuarioCliente { get; set; }
+        public List<Movimentacao> Movimentacao { get; set; }
+        public Investimento Investimento { get; set; }
     }
 }

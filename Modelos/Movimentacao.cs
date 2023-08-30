@@ -8,5 +8,6 @@ namespace Plataforma_Investimento_AdeInvest.Models
         public string TipoMovimentacao { get; set; }
         public double Valor { get; set; }
         public DateTime Data { get; set; }
+        public Conta Conta { get; set; }
     }
 }

@@ -1,40 +1,69 @@
-﻿using AdeInvest.BancoDados;
+﻿using AdeInvest.Servicos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Plataforma_Investimento_AdeInvest.Models;
-using SecureIdentity.Password;
 
 namespace AdeInvest.Contoladores;
 
+[ApiController]
+[Route("api/[controller]")]
 public class UsuarioClienteControlador : ControllerBase
 {
-    [HttpPost("usuario-cliente")]
-    public IActionResult CadastraUsuarioCliente([FromBody] UsuarioCliente pUsuarioCliente,
-        [FromRoute] int pId, 
-        [FromServices] Dados dados)
+    private readonly IUsuarioClienteServico _servico;
+
+    public UsuarioClienteControlador(IUsuarioClienteServico servico)
     {
-        try
+        _servico = servico;
+    }
+
+    [HttpPost("cadastrar")]
+    public IActionResult CadastrarUsuarioCliente([FromBody] UsuarioCliente usuarioCliente)
+    {
+        _servico.CadastrarUsuarioCliente(usuarioCliente);
+        return Created($"api/usuario-cliente/{usuarioCliente.Id}", "Criado com Sucesso");
+    }
+
+    [HttpPut("atualizar/{id}")]
+    public IActionResult AtualizarUsuarioCliente(int id, [FromBody] UsuarioCliente usuarioCliente)
+    {
+        var usuarioExistente = _servico.ObterUsuarioClientePorId(id);
+        if (usuarioExistente == null)
         {
-            var xUsuarioCliente= new UsuarioCliente
-            {
-                Nome = pUsuarioCliente.Nome,
-                Usuario = pUsuarioCliente.Usuario,
-                Senha = PasswordHasher.Hash(pUsuarioCliente.Senha),
-                Cpf = pUsuarioCliente.Cpf,
-                Email = pUsuarioCliente.Email
-            };
-            
-            dados.UsuarioCliente.Add(xUsuarioCliente);
-            dados.SaveChanges();
-            return Created($"usuario-cliente/{pId}", "Criado com Sucesso");
+            return NotFound("Usuário não encontrado");
         }
-        catch (DbUpdateException)
+
+        _servico.AtualizarUsuarioCliente(usuarioCliente);
+        return Ok("Usuário atualizado com sucesso");
+    }
+
+    [HttpDelete("deletar/{id}")]
+    public IActionResult DeletarUsuarioCliente(int id)
+    {
+        var usuarioExistente = _servico.ObterUsuarioClientePorId(id);
+        if (usuarioExistente == null)
         {
-            return StatusCode(500, "Não foi possível adicionar a tarefa");
+            return NotFound("Usuário não encontrado");
         }
-        catch
+
+        _servico.DeletarUsuarioCliente(id);
+        return Ok("Usuário deletado com sucesso");
+    }
+
+    [HttpGet("todos")]
+    public IActionResult ObterTodosUsuariosClientes()
+    {
+        var usuariosClientes = _servico.ObterTodosUsuariosClientes();
+        return Ok(usuariosClientes);
+    }
+
+    [HttpGet("{id:int}")]
+    public IActionResult ObterUsuarioClientePorId(int id)
+    {
+        var usuarioCliente = _servico.ObterUsuarioClientePorId(id);
+        if (usuarioCliente == null)
         {
-            return StatusCode(500, "Falha interna no servidor");
+            return NotFound("Usuário não encontrado");
         }
+
+        return Ok(usuarioCliente);
     }
 }

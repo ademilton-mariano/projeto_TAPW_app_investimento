@@ -6,5 +6,6 @@
         public string TipoConta { get; set; }
         public double? Rendimento { get; set; }
         public int? TempoResgate { get; set; }
+        public List<Conta> Conta { get; set; }
     }
 }

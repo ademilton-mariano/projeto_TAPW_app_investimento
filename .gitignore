@@ -1,0 +1,5 @@
+﻿/bin/
+/Properties/
+*.json
+AdeInvest.sln.DotSettings
+/obj/
