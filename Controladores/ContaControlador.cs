@@ -4,8 +4,6 @@ using Plataforma_Investimento_AdeInvest.Models;
 
 namespace AdeInvest.Contoladores;
 
-[ApiController]
-[Route("api/[controller]")]
 public class ContaControlador : ControllerBase
 {
     private readonly IContaServico _servico;
@@ -15,14 +13,14 @@ public class ContaControlador : ControllerBase
         _servico = servico;
     }
 
-    [HttpPost("cadastrar")]
+    [HttpPost("conta-cadastrar")]
     public IActionResult CadastrarConta([FromBody] Conta conta)
     {
         _servico.AdicionarConta(conta);
         return Created($"api/conta/{conta.Id}", "Conta Criada com Sucesso");
     }
 
-    [HttpPut("atualizar/{id}")]
+    [HttpPut("conta-atualizar/{id}")]
     public IActionResult AtualizarConta(int id, [FromBody] Conta conta)
     {
         var contaExistente = _servico.ObterContaPorId(id);
@@ -35,7 +33,7 @@ public class ContaControlador : ControllerBase
         return Ok("Conta atualizada com sucesso");
     }
 
-    [HttpDelete("deletar/{id}")]
+    [HttpDelete("conta-deletar/{id}")]
     public IActionResult DeletarConta(int id)
     {
         var contaExistente = _servico.ObterContaPorId(id);
@@ -48,14 +46,14 @@ public class ContaControlador : ControllerBase
         return Ok("Conta deletada com sucesso");
     }
 
-    [HttpGet("todas")]
+    [HttpGet("conta-todas")]
     public IActionResult ObterTodasContas()
     {
         var contas = _servico.ObterTodasContas();
         return Ok(contas);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("conta/{id}")]
     public IActionResult ObterContaPorId(int id)
     {
         var conta = _servico.ObterContaPorId(id);

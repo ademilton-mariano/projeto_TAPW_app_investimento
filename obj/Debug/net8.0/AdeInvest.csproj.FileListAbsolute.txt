@@ -71,3 +71,4 @@ C:\AdeInvest\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\AdeInvest\obj\Debug\net8.0\AdeInvest.MvcApplicationPartsAssemblyInfo.cs
 C:\AdeInvest\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.Design.dll
 C:\AdeInvest\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.Design.dll
+C:\AdeInvest\obj\Debug\net8.0\AdeInvest.sourcelink.json

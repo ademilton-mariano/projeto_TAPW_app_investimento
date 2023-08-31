@@ -21,6 +21,7 @@ public class UsuarioClienteRepositorio : IUsuarioClienteRepositorio
         {
             Nome = usuarioCliente.Nome,
             Email = usuarioCliente.Email,
+            Usuario = usuarioCliente.Usuario,
             Senha = PasswordHasher.Hash(usuarioCliente.Senha),
             Cpf = usuarioCliente.Cpf,
         };
