@@ -8,24 +8,30 @@ namespace AdeInvest.Contoladores;
     [Route("api/[controller]")]
     public class LoginControlador : ControllerBase
     {
-        private readonly IUsuarioClienteServico _usuarioClienteService;
+        private readonly IUsuarioClienteServico _usuarioClienteServico;
+        private readonly JwtServico _jwtService;
+        private readonly IConfiguration _configuration;
 
-        public LoginControlador(IUsuarioClienteServico usuarioClienteService)
+        public LoginControlador(IUsuarioClienteServico usuarioClienteServico, JwtServico jwtService, IConfiguration configuration)
         {
-            _usuarioClienteService = usuarioClienteService;
+            _usuarioClienteServico = usuarioClienteServico;
+            _jwtService = jwtService;
+            _configuration = configuration;
         }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest loginRequest)
         {
-            var usuarioCliente = _usuarioClienteService.ObterUsuarioClientePorEmail(loginRequest.Email);
+            var usuarioCliente = _usuarioClienteServico.ObterUsuarioClientePorEmail(loginRequest.Email);
 
             if (usuarioCliente == null || !PasswordHasher.Verify(loginRequest.Senha, usuarioCliente.Senha))
             {
                 return Unauthorized("Email ou senha incorretos");
             }
 
-            return Ok("Login bem-sucedido");
+            var token = _jwtService.GenerateToken(usuarioCliente);
+
+            return Ok(new { Token = token });
         }
 
         [HttpPost("logout")]

@@ -1,8 +1,33 @@
+using System.Text;
+using AdeInvest;
 using AdeInvest.BancoDados;
 using AdeInvest.Repositorios;
 using AdeInvest.Servicos;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+var key = Encoding.ASCII.GetBytes(Configuracoes.ChaveJwt);
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = true,
+        ValidateAudience = false,
+        ValidIssuer = Configuracoes.Emissor,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 builder.Services.AddScoped<IUsuarioClienteRepositorio, UsuarioClienteRepositorio>();
 builder.Services.AddScoped<IContaRepositorio, ContaRepositorio>();
