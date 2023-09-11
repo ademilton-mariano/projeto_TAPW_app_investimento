@@ -29,9 +29,15 @@ namespace AdeInvest.Contoladores;
                 return Unauthorized("Email ou senha incorretos");
             }
 
-            var token = _jwtService.GenerateToken(usuarioCliente);
+            var xToken = _jwtService.GenerateToken(usuarioCliente);
+            
+            var xResposta = new
+            {
+                Token = xToken,
+                UserId = usuarioCliente.Id
+            };
 
-            return Ok(new { Token = token });
+            return Ok(xResposta);
         }
 
         [HttpPost("logout")]

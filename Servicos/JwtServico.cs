@@ -8,26 +8,35 @@ namespace AdeInvest.Servicos;
 
 public class JwtServico
 {
+    private readonly Configuracoes? _configuracoes;
+    private readonly IConfiguration _configuration;
+
+    public JwtServico(IConfiguration configuration)
+    {
+        _configuration = configuration;
+        _configuracoes = configuration.GetSection("Configuracoes").Get<Configuracoes>();
+    }
+
     public string GenerateToken(UsuarioCliente usuarioCliente)
     {
-        var xChave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuracoes.ChaveJwt));
-        var xCredencais = new SigningCredentials(xChave, SecurityAlgorithms.HmacSha256);
+        var xTokenHandler = new JwtSecurityTokenHandler();
+        var xChave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuracoes.ChaveJwt));
+        var xCredencais = new SigningCredentials(xChave, SecurityAlgorithms.HmacSha256Signature);
 
         var claims = new[]
         {
             new Claim(ClaimTypes.NameIdentifier, usuarioCliente.Id.ToString()),
             new Claim(ClaimTypes.Email, usuarioCliente.Email),
-            // Você pode adicionar outras informações personalizadas aqui, como roles (funções) do usuário
         };
 
-        var token = new JwtSecurityToken(
-            Configuracoes.Emissor,
-            Configuracoes.Emissor,
+        var xToken = new JwtSecurityToken(
+            _configuracoes.Emissor,
+            _configuracoes.Emissor,
             claims,
-            expires: DateTime.Now.AddMinutes(Configuracoes.Expiracao),
+            expires: DateTime.Now.AddMinutes(_configuracoes.Expiracao),
             signingCredentials: xCredencais
         );
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        return xTokenHandler.WriteToken(xToken);
     }
 }

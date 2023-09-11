@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdeInvest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c2d8afc907b79fba836669ccef56ed38398c0356")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09c9eeb17820fc70f4645a71c8627448254b6102")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdeInvest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdeInvest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

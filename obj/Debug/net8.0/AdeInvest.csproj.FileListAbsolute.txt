@@ -72,3 +72,10 @@ C:\AdeInvest\obj\Debug\net8.0\AdeInvest.MvcApplicationPartsAssemblyInfo.cs
 C:\AdeInvest\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.Design.dll
 C:\AdeInvest\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.Design.dll
 C:\AdeInvest\obj\Debug\net8.0\AdeInvest.sourcelink.json
+C:\AdeInvest\bin\Debug\net8.0\ade-investe-front\angular.json
+C:\AdeInvest\bin\Debug\net8.0\ade-investe-front\package-lock.json
+C:\AdeInvest\bin\Debug\net8.0\ade-investe-front\package.json
+C:\AdeInvest\bin\Debug\net8.0\ade-investe-front\tsconfig.app.json
+C:\AdeInvest\bin\Debug\net8.0\ade-investe-front\tsconfig.json
+C:\AdeInvest\bin\Debug\net8.0\ade-investe-front\tsconfig.spec.json
+C:\AdeInvest\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

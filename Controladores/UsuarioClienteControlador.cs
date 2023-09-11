@@ -16,8 +16,16 @@ public class UsuarioClienteControlador : ControllerBase
     [HttpPost("usuario-cadastrar")]
     public IActionResult CadastrarUsuarioCliente([FromBody] UsuarioCliente usuarioCliente)
     {
-        _servico.CadastrarUsuarioCliente(usuarioCliente);
-        return Created($"api/usuario-cliente/{usuarioCliente.Id}", "Criado com Sucesso");
+        try
+        {
+            _servico.CadastrarUsuarioCliente(usuarioCliente);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     [HttpPut("usuario-atualizar/{id}")]

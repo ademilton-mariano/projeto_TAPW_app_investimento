@@ -6,10 +6,14 @@ using AdeInvest.Servicos;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
+var xConfiguracoes = builder.Configuration.GetSection("Configuracoes").Get<Configuracoes>();
 
-var key = Encoding.ASCII.GetBytes(Configuracoes.ChaveJwt);
+
+var key = Encoding.ASCII.GetBytes(xConfiguracoes.ChaveJwt);
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -23,7 +27,7 @@ builder.Services.AddAuthentication(x =>
         IssuerSigningKey = new SymmetricSecurityKey(key),
         ValidateIssuer = true,
         ValidateAudience = false,
-        ValidIssuer = Configuracoes.Emissor,
+        ValidIssuer = xConfiguracoes.Emissor,
         ValidateLifetime = true,
         ClockSkew = TimeSpan.Zero
     };
@@ -45,6 +49,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<Dados>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<JwtServico>();
 
 
 var app = builder.Build();
