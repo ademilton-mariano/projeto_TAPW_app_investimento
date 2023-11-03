@@ -19,7 +19,7 @@ public class UsuarioClienteControlador : ControllerBase
         try
         {
             _servico.CadastrarUsuarioCliente(usuarioCliente);
-            return Ok();
+            return Ok("Usuário cadastrado com sucesso");
         }
         catch (Exception e)
         {

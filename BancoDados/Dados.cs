@@ -12,5 +12,5 @@ public class Dados : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlServer(
-            "Data Source=ADEMILTON;Initial Catalog=Conta_Investimento;Integrated Security=True;Encrypt=False;");
+            "Data Source=ADEMILTON;Initial Catalog=AdeINvest;Integrated Security=True;Encrypt=False;");
 }

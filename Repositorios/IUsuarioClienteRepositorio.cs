@@ -9,4 +9,5 @@ public interface IUsuarioClienteRepositorio
     List<UsuarioCliente> ObterTodosUsuariosClientes();
     UsuarioCliente ObterUsuarioClientePorId(int id);
     UsuarioCliente ObterUsuarioClientePorEmail(string email);
+    void AtualizarDataUltimoLogin(UsuarioCliente usuarioCliente, DateTime login);
 }

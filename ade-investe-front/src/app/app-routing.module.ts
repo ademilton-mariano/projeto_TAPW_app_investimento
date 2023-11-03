@@ -6,10 +6,8 @@ import { PaginaInicialComponent } from './pagina-inicial/pagina-inicial.componen
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  {
-    path: 'pagina-inicial/:id',
-    component: PaginaInicialComponent
-  }
+  {path: 'pagina-inicial', component: PaginaInicialComponent},
+  { path: '', redirectTo: '/pagina-inicial', pathMatch: 'full' },
 ];
 
 @NgModule({

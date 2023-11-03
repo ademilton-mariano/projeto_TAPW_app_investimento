@@ -45,4 +45,9 @@ public class UsuarioClienteServico : IUsuarioClienteServico
     {
         return _repositorio.ObterUsuarioClientePorEmail(email);
     }
+
+    public void AtualizarDataUltimoLogin(UsuarioCliente usuarioCliente, DateTime login)
+    {
+        _repositorio.AtualizarDataUltimoLogin(usuarioCliente, login);
+    }
 }

@@ -5,7 +5,6 @@ using SecureIdentity.Password;
 namespace AdeInvest.Contoladores;
 
     [ApiController]
-    [Route("api/[controller]")]
     public class LoginControlador : ControllerBase
     {
         private readonly IUsuarioClienteServico _usuarioClienteServico;
@@ -24,17 +23,18 @@ namespace AdeInvest.Contoladores;
         {
             var usuarioCliente = _usuarioClienteServico.ObterUsuarioClientePorEmail(loginRequest.Email);
 
-            if (usuarioCliente == null || !PasswordHasher.Verify(loginRequest.Senha, usuarioCliente.Senha))
+            if (usuarioCliente == null || !PasswordHasher.Verify(usuarioCliente.Senha, loginRequest.Senha))
             {
                 return Unauthorized("Email ou senha incorretos");
             }
 
+            _usuarioClienteServico.AtualizarDataUltimoLogin(usuarioCliente, loginRequest.DataLogin ?? DateTime.UtcNow);
             var xToken = _jwtService.GenerateToken(usuarioCliente);
-            
+
             var xResposta = new
             {
                 Token = xToken,
-                UserId = usuarioCliente.Id
+                UsuarioId = usuarioCliente.Id
             };
 
             return Ok(xResposta);
@@ -50,6 +50,7 @@ namespace AdeInvest.Contoladores;
 
     public class LoginRequest
     {
+        public DateTime? DataLogin { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
     }

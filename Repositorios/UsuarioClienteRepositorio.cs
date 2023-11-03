@@ -1,5 +1,4 @@
 ﻿using AdeInvest.BancoDados;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Plataforma_Investimento_AdeInvest.Models;
 using SecureIdentity.Password;
@@ -21,9 +20,9 @@ public class UsuarioClienteRepositorio : IUsuarioClienteRepositorio
         {
             Nome = usuarioCliente.Nome,
             Email = usuarioCliente.Email,
-            Usuario = usuarioCliente.Usuario,
             Senha = PasswordHasher.Hash(usuarioCliente.Senha),
             Cpf = usuarioCliente.Cpf,
+            DataNascimento = usuarioCliente.DataNascimento,
         };
         _dados.UsuarioCliente.Add(xUsuarioCliente);
         _dados.SaveChanges();
@@ -54,5 +53,12 @@ public class UsuarioClienteRepositorio : IUsuarioClienteRepositorio
     public UsuarioCliente ObterUsuarioClientePorEmail(string email)
     {
         return _dados.UsuarioCliente.FirstOrDefault(u => u.Email == email);
+    }
+
+    public void AtualizarDataUltimoLogin(UsuarioCliente usuarioCliente, DateTime login)
+    {
+        usuarioCliente.DataLogin = login;
+        _dados.Entry(usuarioCliente).State = EntityState.Modified;
+        _dados.SaveChanges();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Plataforma_Investimento_AdeInvest.Models;
+﻿using AdeInvest.Contoladores;
+using Plataforma_Investimento_AdeInvest.Models;
 
 namespace AdeInvest.Servicos;
 
@@ -10,4 +11,5 @@ public interface IUsuarioClienteServico
     List<UsuarioCliente> ObterTodosUsuariosClientes();
     UsuarioCliente ObterUsuarioClientePorId(int id);
     UsuarioCliente ObterUsuarioClientePorEmail(string email);
+    void AtualizarDataUltimoLogin(UsuarioCliente usuarioCliente, DateTime login);
 }

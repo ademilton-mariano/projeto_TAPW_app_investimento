@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RequisicoesService<T> {
+  public baseUrl = 'https://localhost:44333';
 
   constructor(private http: HttpClient) { }
 
