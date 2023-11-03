@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -11,15 +11,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CpfMaskDirective } from './cpf-mask.directive';
-import { LoginComponent } from './login/login.component';
-import { PaginaInicialComponent } from './pagina-inicial/pagina-inicial.component';
+import { LoginComponent } from './paginas/login/login.component';
+import { PaginaInicialComponent } from './paginas/pagina-inicial/pagina-inicial.component';
+import { CadastroComponent } from './paginas/cadastro/cadastro.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PaginaInicialComponent,
-    CpfMaskDirective
+    CpfMaskDirective,
+    CadastroComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,7 @@ import { PaginaInicialComponent } from './pagina-inicial/pagina-inicial.componen
     MatNativeDateModule,
     MatInputModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },

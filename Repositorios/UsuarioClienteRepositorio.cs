@@ -34,20 +34,42 @@ public class UsuarioClienteRepositorio : IUsuarioClienteRepositorio
         _dados.SaveChanges();
     }
 
-    public void DeletarUsuarioCliente(UsuarioCliente usuarioCliente)
+    public void DeletarUsuarioCliente(int id)
     {
-        _dados.UsuarioCliente.Remove(usuarioCliente);
+        var xUsuarioCliente = _dados.UsuarioCliente.FirstOrDefault(u => u.Id == id);
+
+        if (xUsuarioCliente == null)
+        {
+            return;
+        }
+
+        _dados.UsuarioCliente.Remove(xUsuarioCliente);
         _dados.SaveChanges();
     }
 
-    public List<UsuarioCliente> ObterTodosUsuariosClientes()
+    public List<UsuarioClienteViewModel> ObterTodosUsuariosClientes()
     {
-        return _dados.UsuarioCliente.ToList();
+        return _dados.UsuarioCliente.Cast<UsuarioClienteViewModel>().ToList();
     }
 
-    public UsuarioCliente ObterUsuarioClientePorId(int id)
+    public UsuarioClienteViewModel ObterUsuarioClientePorId(int id)
     {
-        return _dados.UsuarioCliente.FirstOrDefault(u => u.Id == id);
+        var xUsuarioCliente = _dados.UsuarioCliente.FirstOrDefault(u => u.Id == id);
+
+        if (xUsuarioCliente == null)
+        {
+            return null;
+        }
+
+        return  new UsuarioClienteViewModel
+        {
+           Id = xUsuarioCliente.Id
+           , Cpf = xUsuarioCliente.Cpf
+           , DataNascimento = xUsuarioCliente.DataNascimento
+           , Email = xUsuarioCliente.Email
+           , DataLogin = xUsuarioCliente.DataLogin
+           , Nome = xUsuarioCliente.Nome
+        };
     }
 
     public UsuarioCliente ObterUsuarioClientePorEmail(string email)

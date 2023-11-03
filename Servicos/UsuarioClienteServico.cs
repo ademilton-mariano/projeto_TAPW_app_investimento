@@ -24,19 +24,15 @@ public class UsuarioClienteServico : IUsuarioClienteServico
 
     public void DeletarUsuarioCliente(int id)
     {
-        var usuarioCliente = _repositorio.ObterUsuarioClientePorId(id);
-        if (usuarioCliente != null)
-        {
-            _repositorio.DeletarUsuarioCliente(usuarioCliente);
-        }
+            _repositorio.DeletarUsuarioCliente(id);
     }
 
-    public List<UsuarioCliente> ObterTodosUsuariosClientes()
+    public List<UsuarioClienteViewModel> ObterTodosUsuariosClientes()
     {
         return _repositorio.ObterTodosUsuariosClientes();
     }
 
-    public UsuarioCliente ObterUsuarioClientePorId(int id)
+    public UsuarioClienteViewModel ObterUsuarioClientePorId(int id)
     {
         return _repositorio.ObterUsuarioClientePorId(id);
     }

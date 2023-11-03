@@ -4,6 +4,7 @@ using Plataforma_Investimento_AdeInvest.Models;
 
 namespace AdeInvest.Contoladores;
 
+[Route("usuario")]
 public class UsuarioClienteControlador : ControllerBase
 {
     private readonly IUsuarioClienteServico _servico;
@@ -13,7 +14,7 @@ public class UsuarioClienteControlador : ControllerBase
         _servico = servico;
     }
 
-    [HttpPost("usuario-cadastrar")]
+    [HttpPost("")]
     public IActionResult CadastrarUsuarioCliente([FromBody] UsuarioCliente usuarioCliente)
     {
         try
@@ -28,7 +29,7 @@ public class UsuarioClienteControlador : ControllerBase
         }
     }
 
-    [HttpPut("usuario-atualizar/{id}")]
+    [HttpPut("{id:int}")]
     public IActionResult AtualizarUsuarioCliente(int id, [FromBody] UsuarioCliente usuarioCliente)
     {
         var usuarioExistente = _servico.ObterUsuarioClientePorId(id);
@@ -41,7 +42,7 @@ public class UsuarioClienteControlador : ControllerBase
         return Ok("Usuário atualizado com sucesso");
     }
 
-    [HttpDelete("usuario-deletar/{id}")]
+    [HttpDelete("{id:int}")]
     public IActionResult DeletarUsuarioCliente(int id)
     {
         var usuarioExistente = _servico.ObterUsuarioClientePorId(id);
@@ -54,14 +55,14 @@ public class UsuarioClienteControlador : ControllerBase
         return Ok("Usuário deletado com sucesso");
     }
 
-    [HttpGet("usuario-todos")]
+    [HttpGet("")]
     public IActionResult ObterTodosUsuariosClientes()
     {
         var usuariosClientes = _servico.ObterTodosUsuariosClientes();
         return Ok(usuariosClientes);
     }
 
-    [HttpGet("usuario-{id:int}")]
+    [HttpGet("{id:int}")]
     public IActionResult ObterUsuarioClientePorId(int id)
     {
         var usuarioCliente = _servico.ObterUsuarioClientePorId(id);

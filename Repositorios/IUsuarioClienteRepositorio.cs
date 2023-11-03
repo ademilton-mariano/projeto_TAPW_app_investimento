@@ -5,9 +5,9 @@ public interface IUsuarioClienteRepositorio
 {
     void AdicionarUsuarioCliente(UsuarioCliente usuarioCliente);
     void AtualizarUsuarioCliente(UsuarioCliente usuarioCliente);
-    void DeletarUsuarioCliente(UsuarioCliente usuarioCliente);
-    List<UsuarioCliente> ObterTodosUsuariosClientes();
-    UsuarioCliente ObterUsuarioClientePorId(int id);
+    void DeletarUsuarioCliente(int id);
+    List<UsuarioClienteViewModel> ObterTodosUsuariosClientes();
+    UsuarioClienteViewModel ObterUsuarioClientePorId(int id);
     UsuarioCliente ObterUsuarioClientePorEmail(string email);
     void AtualizarDataUltimoLogin(UsuarioCliente usuarioCliente, DateTime login);
 }
