@@ -12,24 +12,6 @@ public class InvestimentoRepositorio : IInvestimentoRepositorio
         _dados = dados;
     }
 
-    public void AdicionarInvestimento(Investimento investimento)
-    {
-        _dados.Investimento.Add(investimento);
-        _dados.SaveChanges();
-    }
-
-    public void AtualizarInvestimento(Investimento investimento)
-    {
-        _dados.Investimento.Update(investimento);
-        _dados.SaveChanges();
-    }
-
-    public void DeletarInvestimento(Investimento investimento)
-    {
-        _dados.Investimento.Remove(investimento);
-        _dados.SaveChanges();
-    }
-
     public List<Investimento> ObterTodosInvestimentos()
     {
         return _dados.Investimento.ToList();

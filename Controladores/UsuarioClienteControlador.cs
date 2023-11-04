@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Plataforma_Investimento_AdeInvest.Models;
 
-namespace AdeInvest.Contoladores;
+namespace AdeInvest.Controladores;
 
 [Route("usuario")]
 public class UsuarioClienteControlador : ControllerBase
@@ -12,21 +12,6 @@ public class UsuarioClienteControlador : ControllerBase
     public UsuarioClienteControlador(IUsuarioClienteServico servico)
     {
         _servico = servico;
-    }
-
-    [HttpPost("")]
-    public IActionResult CadastrarUsuarioCliente([FromBody] UsuarioCliente usuarioCliente)
-    {
-        try
-        {
-            _servico.CadastrarUsuarioCliente(usuarioCliente);
-            return Ok("Usuário cadastrado com sucesso");
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
     }
 
     [HttpPut("{id:int}")]

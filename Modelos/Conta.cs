@@ -3,11 +3,11 @@
     public class Conta
     {
         public int Id { get; set; }
-        public string Numero { get; set; }
-        public double? Saldo { get; set; }
-        public bool Ativa { get; set; }
+        public decimal Saldo { get; set; }
+        public bool Ativo { get; set; }
         public UsuarioCliente UsuarioCliente { get; set; }
         public List<Movimentacao> Movimentacao { get; set; }
         public Investimento Investimento { get; set; }
+        public DateTime CriadoDataHora { get; set; }
     }
 }

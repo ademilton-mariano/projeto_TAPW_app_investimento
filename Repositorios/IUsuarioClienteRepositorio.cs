@@ -3,7 +3,7 @@ using Plataforma_Investimento_AdeInvest.Models;
 namespace AdeInvest.Repositorios;
 public interface IUsuarioClienteRepositorio
 {
-    void AdicionarUsuarioCliente(UsuarioCliente usuarioCliente);
+    UsuarioCliente AdicionarUsuarioCliente(UsuarioCliente usuarioCliente);
     void AtualizarUsuarioCliente(UsuarioCliente usuarioCliente);
     void DeletarUsuarioCliente(int id);
     List<UsuarioClienteViewModel> ObterTodosUsuariosClientes();

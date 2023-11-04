@@ -12,9 +12,10 @@ public class UsuarioClienteServico : IUsuarioClienteServico
         _repositorio = repositorio;
     }
 
-    public void CadastrarUsuarioCliente(UsuarioCliente usuarioCliente)
+    public UsuarioCliente CadastrarUsuarioCliente(UsuarioCliente usuarioCliente)
     {
-        _repositorio.AdicionarUsuarioCliente(usuarioCliente);
+        return _repositorio.AdicionarUsuarioCliente(usuarioCliente);
+        
     }
 
     public void AtualizarUsuarioCliente(UsuarioCliente usuarioCliente)

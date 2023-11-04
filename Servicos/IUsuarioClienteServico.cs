@@ -4,7 +4,7 @@ namespace AdeInvest.Servicos;
 
 public interface IUsuarioClienteServico 
 {
-    void CadastrarUsuarioCliente(UsuarioCliente usuarioCliente);
+    UsuarioCliente CadastrarUsuarioCliente(UsuarioCliente usuarioCliente);
     void AtualizarUsuarioCliente(UsuarioCliente usuarioCliente);
     void DeletarUsuarioCliente(int id);
     List<UsuarioClienteViewModel> ObterTodosUsuariosClientes();

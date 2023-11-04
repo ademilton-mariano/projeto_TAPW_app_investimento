@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Plataforma_Investimento_AdeInvest.Models;
 
-namespace AdeInvest.Contoladores;
+namespace AdeInvest.Controladores;
 
 public class ContaControlador : ControllerBase
 {

@@ -14,7 +14,7 @@ public class UsuarioClienteRepositorio : IUsuarioClienteRepositorio
         _dados = dados;
     }
 
-    public void AdicionarUsuarioCliente(UsuarioCliente usuarioCliente)
+    public UsuarioCliente AdicionarUsuarioCliente(UsuarioCliente usuarioCliente)
     {
         var xUsuarioCliente = new UsuarioCliente
         {
@@ -26,6 +26,7 @@ public class UsuarioClienteRepositorio : IUsuarioClienteRepositorio
         };
         _dados.UsuarioCliente.Add(xUsuarioCliente);
         _dados.SaveChanges();
+        return xUsuarioCliente;
     }
 
     public void AtualizarUsuarioCliente(UsuarioCliente usuarioCliente)

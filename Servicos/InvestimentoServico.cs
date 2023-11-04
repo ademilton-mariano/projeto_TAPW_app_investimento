@@ -12,25 +12,6 @@ public class InvestimentoServico : IInvestimentoServico
         _repositorio = repositorio;
     }
 
-    public void AdicionarInvestimento(Investimento investimento)
-    {
-        _repositorio.AdicionarInvestimento(investimento);
-    }
-
-    public void AtualizarInvestimento(Investimento investimento)
-    {
-        _repositorio.AtualizarInvestimento(investimento);
-    }
-
-    public void DeletarInvestimento(int id)
-    {
-        var investimento = _repositorio.ObterInvestimentoPorId(id);
-        if (investimento != null)
-        {
-            _repositorio.DeletarInvestimento(investimento);
-        }
-    }
-
     public List<Investimento> ObterTodosInvestimentos()
     {
         return _repositorio.ObterTodosInvestimentos();

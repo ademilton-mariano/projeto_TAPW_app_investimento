@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
     ) {}
 
   formularioLogin: FormGroup = new FormGroup({});
+  formularioCadastro: FormGroup = new FormGroup({});
+  exibirCadastro: boolean = false;
+  tiposInvestimento: any[] = [];
 
   ngOnInit(): void {
     this.formularioLogin = this.formBuilder.group({
@@ -26,6 +29,24 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required]],
     });
+    this.formularioCadastro = this.formBuilder.group({
+      dataNascimento: [new Date(), [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      senha: ['', [Validators.required]],
+      nome: ['', [Validators.required]],
+      cpf: ['', [Validators.required]],
+      tipoInvestimento: ['', [Validators.required]],
+      //confirmarSenha: ['', [Validators.required]],
+      saldo: ['', [Validators.required]],
+    });
+    this.requisicoes.listarTudo('investimento').subscribe(
+      (resposta: any) => {
+        this.tiposInvestimento = resposta;
+      },
+      (error) => {
+        console.error('Erro ao buscar tipos de investimento', error);
+      }
+    );
   }
 
   get dadosFormulario() {
@@ -50,5 +71,38 @@ export class LoginComponent implements OnInit {
         console.error('Erro no login', error);
       }
     );
+  }
+
+  Cadastro() {
+    const dadosFormulario = {
+      nome: this.formularioCadastro.controls['nome'].value,
+      email: this.formularioCadastro.controls['email'].value,
+      senha: this.formularioCadastro.controls['senha'].value,
+      dataNascimento: this.formularioCadastro.controls['dataNascimento'].value,
+      cpf: this.formularioCadastro.controls['cpf'].value.replace(/\D/g, ''),
+      saldo: this.formularioCadastro.controls['saldo'].value,
+      idInvestimento: this.formularioCadastro.controls['tipoInvestimento'].value,
+    };
+    this.requisicoes.criar('cadastro', dadosFormulario, { tipoResposta: 'text' }).subscribe(
+      (resposta) => {
+        if (resposta && resposta.toLowerCase().includes('Cadastro realizado com sucesso')) {
+          this.exibirCadastro = false;
+        } else {
+          console.error('Erro no cadastro');
+        }
+      },
+      (error) => {
+        console.error('Erro no cadastro', error);
+      }
+    );
+  }
+
+  AbreCadastro() {
+    this.exibirCadastro = true;
+  }
+
+  FechaCadastro() {
+    this.formularioCadastro.reset();
+    this.exibirCadastro = false;
   }
 }

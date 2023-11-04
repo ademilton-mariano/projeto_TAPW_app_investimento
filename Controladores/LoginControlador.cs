@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SecureIdentity.Password;
 
-namespace AdeInvest.Contoladores;
+namespace AdeInvest.Controladores;
 
     [ApiController]
     public class LoginControlador : ControllerBase
