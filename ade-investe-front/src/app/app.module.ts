@@ -13,7 +13,9 @@ import { AppComponent } from './app.component';
 import { CpfMaskDirective } from './cpf-mask.directive';
 import { LoginComponent } from './paginas/login/login.component';
 import { PaginaInicialComponent } from './paginas/pagina-inicial/pagina-inicial.component';
-import { CadastroComponent } from './paginas/cadastro/cadastro.component';
+import { PerfilComponent } from './paginas/perfil/perfil.component';
+import { NavbarModule } from './componentes/navbar/navbar.module';
+import { SidebarModule } from './componentes/sidebar/sidebar.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,7 @@ import { CadastroComponent } from './paginas/cadastro/cadastro.component';
     LoginComponent,
     PaginaInicialComponent,
     CpfMaskDirective,
-    CadastroComponent
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,8 @@ import { CadastroComponent } from './paginas/cadastro/cadastro.component';
     MatInputModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    NavbarModule,
+    SidebarModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
