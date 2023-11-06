@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-
-import { RequisicoesService } from '../../servicos/requisicoes.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AutenticadorService } from 'src/app/servicos/autenticador.service';
+
+import { RequisicoesService } from '../../servicos/requisicoes.service';
 
 @Component({
   selector: 'app-pagina-inicial',
@@ -26,6 +26,7 @@ export class PaginaInicialComponent {
   mostrarResgatarForm: boolean = false;
   formularioInvestir: FormGroup;
   formularioResgatar: FormGroup;
+  rendimento: number = 0.0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -93,6 +94,8 @@ export class PaginaInicialComponent {
   AbrirResgatarForm() {
     this.mostrarResgatarForm = true;
   }
+
+  CalculoRendimento() {}
 
   FecharResgatarForm() {
     this.mostrarResgatarForm = false;

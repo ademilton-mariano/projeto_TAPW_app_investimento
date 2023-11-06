@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AutenticadorService } from 'src/app/servicos/autenticador.service';
 
 import { RequisicoesService } from '../../servicos/requisicoes.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AutenticadorService } from 'src/app/servicos/autenticador.service';
 
 @Component({
   selector: 'app-login',
@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
 
     this.requisicoes.criar(`login`, dadosFormulario).subscribe(
       (resposta) => {
+        localStorage.setItem('diasInvestimento', resposta.diasInvestimento);
         this.autenticadorService.setToken(resposta.token);
         this.autenticadorService.setUsuario(
           this.dadosFormulario['email']?.value,

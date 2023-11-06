@@ -10,12 +10,14 @@ namespace AdeInvest.Controladores;
         private readonly IUsuarioClienteServico _usuarioClienteServico;
         private readonly JwtServico _jwtService;
         private readonly IConfiguration _configuration;
+        private readonly IContaServico _contaServico;
 
-        public LoginControlador(IUsuarioClienteServico usuarioClienteServico, JwtServico jwtService, IConfiguration configuration)
+        public LoginControlador(IUsuarioClienteServico usuarioClienteServico, JwtServico jwtService, IConfiguration configuration, IContaServico contaServico)
         {
             _usuarioClienteServico = usuarioClienteServico;
             _jwtService = jwtService;
             _configuration = configuration;
+            _contaServico = contaServico;
         }
 
         [HttpPost("login")]
@@ -31,10 +33,23 @@ namespace AdeInvest.Controladores;
             _usuarioClienteServico.AtualizarDataUltimoLogin(usuarioCliente, loginRequest.DataLogin ?? DateTime.UtcNow);
             var xToken = _jwtService.GenerateToken(usuarioCliente);
 
+            var dataCriacao = _contaServico.ObterContaPorUsuarioId(usuarioCliente.Id).CriadoDataHora;
+
+            if (dataCriacao == null)
+            {
+                return NotFound("Conta não encontrada");
+            }
+
+            var diferenca = loginRequest.DataLogin - dataCriacao;
+
+
+            var diferencaDias = (int)diferenca.Value.TotalDays;
+
             var xResposta = new
             {
                 Token = xToken,
-                UsuarioId = usuarioCliente.Id
+                UsuarioId = usuarioCliente.Id,
+                DiasInvestimento = diferencaDias
             };
 
             return Ok(xResposta);
