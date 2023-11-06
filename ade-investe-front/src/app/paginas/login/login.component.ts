@@ -11,12 +11,12 @@ import { AutenticadorService } from 'src/app/servicos/autenticador.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private router: Router
-    , private requisicoes: RequisicoesService<any>
-    , public formBuilder: FormBuilder
-    , public autenticadorService: AutenticadorService
-    ) {}
+  constructor(
+    private router: Router,
+    private requisicoes: RequisicoesService<any>,
+    public formBuilder: FormBuilder,
+    public autenticadorService: AutenticadorService
+  ) {}
 
   formularioLogin: FormGroup = new FormGroup({});
   formularioCadastro: FormGroup = new FormGroup({});
@@ -61,9 +61,12 @@ export class LoginComponent implements OnInit {
     };
 
     this.requisicoes.criar(`login`, dadosFormulario).subscribe(
-      token => {
-        this.autenticadorService.setToken(token);
-        this.autenticadorService.setEmailUsuario(this.dadosFormulario['email']?.value);
+      (resposta) => {
+        this.autenticadorService.setToken(resposta.token);
+        this.autenticadorService.setUsuario(
+          this.dadosFormulario['email']?.value,
+          resposta.usuarioId
+        );
         this.autenticadorService.UsuarioAutenticado(true);
         this.router.navigate(['/pagina-inicial']);
       },
@@ -81,14 +84,16 @@ export class LoginComponent implements OnInit {
       dataNascimento: this.formularioCadastro.controls['dataNascimento'].value,
       cpf: this.formularioCadastro.controls['cpf'].value.replace(/\D/g, ''),
       saldo: this.formularioCadastro.controls['saldo'].value,
-      idInvestimento: this.formularioCadastro.controls['tipoInvestimento'].value,
+      idInvestimento:
+        this.formularioCadastro.controls['tipoInvestimento'].value,
     };
-    this.requisicoes.criar('cadastro', dadosFormulario, { tipoResposta: 'text' }).subscribe(
-      (resposta) => {
-        if (resposta && resposta.toLowerCase().includes('Cadastro realizado com sucesso')) {
-          this.exibirCadastro = false;
-        } else {
-          console.error('Erro no cadastro');
+    this.requisicoes.criar(`cadastro`, dadosFormulario).subscribe(
+      (resposta: any) => {
+        try {
+          const responseJSON = JSON.parse(resposta);
+          console.log(responseJSON.mensagem);
+        } catch (error) {
+          console.error('Erro ao analisar a resposta JSON:', error);
         }
       },
       (error) => {

@@ -1,11 +1,83 @@
 <navbar></navbar>
 <sidebar></sidebar>
-<div>
-  <h2>Página Inicial</h2>
-  <div *ngIf="ativo">
-    <h3>Seu Perfil</h3>
-    <p>Nome: {{ usuario.name }}</p>
-    <p>Email: {{ usuario.email }}</p>
-    <!-- Adicione outros campos do perfil aqui -->
+<div class="container-home">
+  <div class="container-home-central">
+    <div class="container-header">
+      <div class="titulo-home">
+        Conta AdeInvest
+      </div>
+      <div class="info-home">
+        Informações da sua conta!
+      </div>
+    </div>
+    <div class="container-info">
+      <div class="info-item">
+        <strong>Nome do Proprietario: </strong>
+        {{ conta.usuarioClienteNome }}
+      </div>
+      <div class="info-item">
+        <strong>Número da Conta: </strong>
+        {{ conta.id }}
+      </div>
+      <div class="info-item">
+        <strong>Saldo: </strong>
+        R$ {{ conta.saldo | number:'1.2-2' }}
+      </div>
+      <div class="info-item">
+        <strong>Tipo de Investimento: </strong>
+        {{ conta.investimentoNome }}
+      </div>
+      <div class="info-item">
+        <strong>Status: </strong>
+        <span [ngClass]="{'text-success': conta.ativo === 'Ativa', 'text-danger': conta.ativo !== 'Ativa'}">{{
+          conta.ativo }}</span>
+      </div>
+      <div class="info-item">
+        <strong>Rendimento do Investimento: </strong>
+        {{ conta.investimentoRendimentoEmPorcentagem }} %
+      </div>
+      <div class="info-item">
+        <strong>Duração do Investimento: </strong>
+        {{ conta.investimentoResgate }} dias
+      </div>
+      <div class="info-item">
+        <strong>Data de Criação da Conta: </strong>
+        {{ conta.criadoDataHora }}
+      </div>
+    </div>
+    <div class="container-buttons">
+      <button class="btn-investir" (click)="AbrirInvestirForm()">Investir</button>
+      <button class="btn-resgatar" (click)="AbrirResgatarForm()">Resgatar</button>
+    </div>
+    <div *ngIf="mostrarInvestirForm">
+      <!-- Formulário para Investir -->
+      <form [formGroup]="formularioInvestir" (submit)="Investir()">
+        <div class="group-input">
+          <div class="text-info">
+            Valor a Investir:
+          </div>
+          <input class="input-form" type="number" name="valorInvestimento" formControlName="valorInvestimento" required>
+        </div>
+        <div class="container-buttons">
+          <button class="btn-investir" type="submit">Concluir</button>
+          <button class="btn-resgatar" (click)="FecharInvestirForm()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="mostrarResgatarForm">
+      <!-- Formulário para Resgatar -->
+      <form [formGroup]="formularioResgatar" (submit)="Resgatar()">
+        <div class="group-input">
+          <div class="text-info">
+            Valor a Resgatar:
+          </div>
+          <input class="input-form" type="number" name="valorResgate" formControlName="valorResgate" required>
+        </div>
+        <div class="group-input">
+          <button class="btn-concluir" type="submit">Concluir</button>
+          <button class="btn-cancelar" (click)="FecharResgatarForm()">Cancelar</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

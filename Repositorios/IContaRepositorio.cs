@@ -6,7 +6,7 @@ public interface IContaRepositorio
 {
     void AdicionarConta(Conta conta);
     void AtualizarConta(Conta conta);
-    void DeletarConta(Conta conta);
+    void DeletarConta(int id);
     List<Conta> ObterTodasContas();
-    Conta ObterContaPorId(int id);
+    ContaViewModel ObterContaPorUsuarioId(int usuarioId);
 }

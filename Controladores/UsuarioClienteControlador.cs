@@ -1,9 +1,12 @@
 ﻿using AdeInvest.Servicos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Plataforma_Investimento_AdeInvest.Models;
 
 namespace AdeInvest.Controladores;
 
+[Authorize]
+[ApiController]
 [Route("usuario")]
 public class UsuarioClienteControlador : ControllerBase
 {

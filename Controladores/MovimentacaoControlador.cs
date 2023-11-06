@@ -1,11 +1,13 @@
 ﻿using AdeInvest.Servicos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Plataforma_Investimento_AdeInvest.Models;
 
 namespace AdeInvest.Controladores;
 
-[ApiController]
-    [Route("api/[controller]")]
+    [Authorize]
+    [ApiController]
+    [Route("movimentacao")]
     public class MovimentacaoControlador : ControllerBase
     {
         private readonly IMovimentacaoServico _service;
@@ -15,27 +17,14 @@ namespace AdeInvest.Controladores;
             _service = service;
         }
 
-        [HttpPost("cadastrar")]
+        [HttpPost("")]
         public IActionResult CadastrarMovimentacao([FromBody] Movimentacao movimentacao)
         {
             _service.AdicionarMovimentacao(movimentacao);
-            return Created($"api/movimentacao/{movimentacao.Id}", "Movimentação Criada com Sucesso");
+            return Ok();
         }
 
-        [HttpPut("atualizar/{id}")]
-        public IActionResult AtualizarMovimentacao(int id, [FromBody] Movimentacao movimentacao)
-        {
-            var movimentacaoExistente = _service.ObterMovimentacaoPorId(id);
-            if (movimentacaoExistente == null)
-            {
-                return NotFound("Movimentação não encontrada");
-            }
-
-            _service.AtualizarMovimentacao(movimentacao);
-            return Ok("Movimentação atualizada com sucesso");
-        }
-
-        [HttpDelete("deletar/{id}")]
+        [HttpDelete("{id:int}")]
         public IActionResult DeletarMovimentacao(int id)
         {
             var movimentacaoExistente = _service.ObterMovimentacaoPorId(id);
@@ -48,14 +37,14 @@ namespace AdeInvest.Controladores;
             return Ok("Movimentação deletada com sucesso");
         }
 
-        [HttpGet("todas")]
+        [HttpGet("")]
         public IActionResult ObterTodasMovimentacoes()
         {
             var movimentacoes = _service.ObterTodasMovimentacoes();
             return Ok(movimentacoes);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public IActionResult ObterMovimentacaoPorId(int id)
         {
             var movimentacao = _service.ObterMovimentacaoPorId(id);

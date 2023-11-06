@@ -24,11 +24,7 @@ public class ContaServico : IContaServico
 
     public void DeletarConta(int id)
     {
-        var conta = _repositorio.ObterContaPorId(id);
-        if (conta != null)
-        {
-            _repositorio.DeletarConta(conta);
-        }
+            _repositorio.DeletarConta(id);
     }
 
     public List<Conta> ObterTodasContas()
@@ -36,8 +32,8 @@ public class ContaServico : IContaServico
         return _repositorio.ObterTodasContas();
     }
 
-    public Conta ObterContaPorId(int id)
+    public ContaViewModel ObterContaPorUsuarioId(int usuarioId)
     {
-        return _repositorio.ObterContaPorId(id);
+        return _repositorio.ObterContaPorUsuarioId(usuarioId);
     }
 }

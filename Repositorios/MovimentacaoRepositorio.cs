@@ -1,6 +1,6 @@
 ﻿using AdeInvest.BancoDados;
 using Microsoft.EntityFrameworkCore;
-using Plataforma_Investimento_AdeInvest.Models;
+
 
 namespace AdeInvest.Repositorios;
 
@@ -15,7 +15,30 @@ public class MovimentacaoRepositorio : IMovimentacaoRepositorio
 
     public void AdicionarMovimentacao(Movimentacao movimentacao)
     {
-        _dados.Movimentacao.Add(movimentacao);
+        var xConta = _dados.Conta.FirstOrDefault(c => c.Id == movimentacao.Id);
+        if (xConta == null)
+        {
+            return;
+        }
+        var xMovimentacao = new Movimentacao
+        {
+            Conta = xConta,
+            Tipo = movimentacao.Tipo,
+            Valor = movimentacao.Valor,
+            DataMovimentacao = DateTime.Now
+        };
+
+        if (xMovimentacao.Tipo == "Investimento")
+        {
+            xConta.Saldo += xMovimentacao.Valor;
+        }
+        else
+        {
+            xConta.Saldo -= xMovimentacao.Valor;
+        }
+
+        _dados.Conta.Update(xConta);
+        _dados.Movimentacao.Add(xMovimentacao);
         _dados.SaveChanges();
     }
 

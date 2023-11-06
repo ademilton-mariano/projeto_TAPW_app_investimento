@@ -8,5 +8,5 @@ public interface IContaServico
     void AtualizarConta(Conta conta);
     void DeletarConta(int id);
     List<Conta> ObterTodasContas();
-    Conta ObterContaPorId(int id);
+    ContaViewModel ObterContaPorUsuarioId(int usuarioId);
 }

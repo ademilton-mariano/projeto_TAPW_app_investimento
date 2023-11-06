@@ -25,9 +25,11 @@ public class ContaRepositorio : IContaRepositorio
         _dados.SaveChanges();
     }
 
-    public void DeletarConta(Conta conta)
+    public void DeletarConta(int id)
     {
-        _dados.Conta.Remove(conta);
+        var conta = _dados.Conta.FirstOrDefault(p => p.Id == id);
+        conta.Ativo = false;
+        _dados.Conta.Update(conta);
         _dados.SaveChanges();
     }
 
@@ -36,8 +38,31 @@ public class ContaRepositorio : IContaRepositorio
         return _dados.Conta.ToList();
     }
 
-    public Conta ObterContaPorId(int id)
+    public ContaViewModel ObterContaPorUsuarioId(int usuarioId)
     {
-        return _dados.Conta.FirstOrDefault(c => c.Id == id);
+        var xConta = _dados.Conta
+            .Include(c => c.UsuarioCliente)
+            .Include(c => c.Investimento)
+            .FirstOrDefault(p => p.UsuarioCliente.Id == usuarioId);
+
+        if (xConta == null)
+        {
+            return null;
+        }
+        
+        var conta = new ContaViewModel
+        {
+            Id = xConta.Id,
+            Saldo = xConta.Saldo,
+            Ativo = xConta.Ativo,
+            InvestimentoId = xConta.Investimento.Id,
+            CriadoDataHora = xConta.CriadoDataHora,
+            InvestimentoNome = xConta.Investimento.Tipo,
+            InvestimentoRendimentoEmPorcentagem = xConta.Investimento.Rendimento,
+            InvestimentoResgate = xConta.Investimento.TempoResgate,
+            UsuarioClienteNome = xConta.UsuarioCliente.Nome
+        };
+
+        return conta;
     }
 }

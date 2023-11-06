@@ -33,7 +33,7 @@ export class AutenticadorService {
         this.token = token;
     }
 
-    get getToken() {
+    getToken() {
         this.token = localStorage.getItem('token');
         return this.token;
     }
@@ -50,18 +50,20 @@ export class AutenticadorService {
         sessionStorage.clear();
     }
 
-    setEmailUsuario(email: string) {
+    setUsuario(email: string, id: string) {
         localStorage.setItem('emailUsuario', email);
+        localStorage.setItem('usuarioId', id);
     }
 
-     getEmailUsuario() {
-        var emailUsuarioLogado = localStorage.getItem('emailUsuario');
-        if (emailUsuarioLogado) {
-            return emailUsuarioLogado;
-        }
-        else {
-            this.limparDadosUsuario();
-            return "";
-        }
-    }
+    getUsuario() {
+      const email = localStorage.getItem('emailUsuario');
+      const id = localStorage.getItem('usuarioId');
+
+      if (email && id) {
+          return { email, id };
+      } else {
+          this.limparDadosUsuario();
+          return null; // Retorna null quando os dados não estão presentes
+      }
+  }
 }

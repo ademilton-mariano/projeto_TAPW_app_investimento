@@ -1,13 +1,10 @@
-using System;
+using Plataforma_Investimento_AdeInvest.Models;
 
-namespace Plataforma_Investimento_AdeInvest.Models
-{
-    public class Movimentacao
-    {
-        public int Id { get; set; }
-        public string TipoMovimentacao { get; set; }
-        public double Valor { get; set; }
-        public DateTime Data { get; set; }
-        public Conta Conta { get; set; }
-    }
-}
+public class Movimentacao
+     {
+         public int Id { get; set; }
+         public string Tipo { get; set; }
+         public decimal Valor { get; set; }
+         public DateTime DataMovimentacao { get; set; }
+         public Conta? Conta { get; set; }
+     }
