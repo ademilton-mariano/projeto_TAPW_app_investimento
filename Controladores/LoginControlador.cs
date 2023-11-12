@@ -33,23 +33,30 @@ namespace AdeInvest.Controladores;
             _usuarioClienteServico.AtualizarDataUltimoLogin(usuarioCliente, loginRequest.DataLogin ?? DateTime.UtcNow);
             var xToken = _jwtService.GenerateToken(usuarioCliente);
 
-            var dataCriacao = _contaServico.ObterContaPorUsuarioId(usuarioCliente.Id).CriadoDataHora;
+            var contaViewModel = _contaServico.ObterContaPorUsuarioId(usuarioCliente.Id);
 
-            if (dataCriacao == null)
+            if (contaViewModel == null)
             {
                 return NotFound("Conta não encontrada");
             }
 
-            var diferenca = loginRequest.DataLogin - dataCriacao;
+            var diferenca = loginRequest.DataLogin - contaViewModel.CriadoDataHora;
 
 
+            if (diferenca == null)
+            {
+                return NotFound("Data de login não encontrada");
+            }
+            
             var diferencaDias = (int)diferenca.Value.TotalDays;
+            var contaExistente = _contaServico.ObterContaPorId(contaViewModel.Id);
+           var rendimento = _contaServico.CalcularRendimentoEAtualizarConta(contaExistente, diferencaDias);
 
             var xResposta = new
             {
                 Token = xToken,
                 UsuarioId = usuarioCliente.Id,
-                DiasInvestimento = diferencaDias
+                Rendimento = rendimento
             };
 
             return Ok(xResposta);

@@ -26,7 +26,7 @@ export class PaginaInicialComponent {
   mostrarResgatarForm: boolean = false;
   formularioInvestir: FormGroup;
   formularioResgatar: FormGroup;
-  rendimento: number = 0.0;
+  rendimento = localStorage.getItem('rendimento');
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,26 +43,7 @@ export class PaginaInicialComponent {
   }
 
   ngOnInit(): void {
-    const idUsuario = this.autenticadorService.getUsuario()?.id;
-
-    if (!idUsuario) {
-      return;
-    }
-
-    const idInt = parseInt(idUsuario, 10);
-
-    this.requisicoes.listar('conta', idInt).subscribe(
-      (resposta: any) => {
-        this.conta = resposta;
-        this.conta.ativo = resposta.ativo === true ? 'Ativa' : 'Inativa';
-        this.conta.criadoDataHora = new Date(resposta.criadoDataHora)
-          .getDate()
-          .toString();
-      },
-      (error) => {
-        console.error('Erro ao buscar conta', error);
-      }
-    );
+    this.BuscarConta();
   }
 
   AbrirInvestirForm() {
@@ -95,7 +76,22 @@ export class PaginaInicialComponent {
     this.mostrarResgatarForm = true;
   }
 
-  CalculoRendimento() {}
+  BuscarConta() {
+    const usuarioId = this.ObterUsuarioId();
+
+    this.requisicoes.listar('conta', usuarioId).subscribe(
+      (resposta: any) => {
+        this.conta = resposta;
+        this.conta.ativo = resposta.ativo === true ? 'Ativa' : 'Inativa';
+        this.conta.criadoDataHora = new Date(resposta.criadoDataHora)
+          .getDate()
+          .toString();
+      },
+      (error) => {
+        console.error('Erro ao buscar conta', error);
+      }
+    );
+  }
 
   FecharResgatarForm() {
     this.mostrarResgatarForm = false;
@@ -103,5 +99,15 @@ export class PaginaInicialComponent {
 
   Resgatar() {
     // Lógica para resgatar
+  }
+
+  public ObterUsuarioId(): number {
+    const idUsuario = this.autenticadorService.getUsuario()?.id;
+
+    if (!idUsuario) {
+      return 0;
+    }
+
+    return parseInt(idUsuario, 10);
   }
 }

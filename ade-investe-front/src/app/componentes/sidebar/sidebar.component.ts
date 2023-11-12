@@ -21,10 +21,6 @@ export class SidebarComponent {
         this.router.navigate(['/pagina-inicial']);
         break;
 
-      case 2:
-        this.router.navigate(['/perfil']);
-        break;
-
         case 100:
           localStorage.clear();
           this.router.navigate(['/']);

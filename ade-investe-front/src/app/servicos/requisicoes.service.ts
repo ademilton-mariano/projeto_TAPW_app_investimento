@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHandler, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environment';
 import { AutenticadorService } from './autenticador.service';
@@ -42,7 +42,13 @@ export class RequisicoesService<T> {
   }
 
   atualizar(endpoint: string, id: number, item: T): Observable<T> {
-    return this.http.put<T>(`${this.baseUrl}/${endpoint}/${id}`, item);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.put<T>(`${this.baseUrl}/${endpoint}/${id}`, item, httpOptions);
   }
 
   apagar(endpoint: string, id: number): Observable<void> {

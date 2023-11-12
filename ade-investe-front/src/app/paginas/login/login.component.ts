@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
 
     this.requisicoes.criar(`login`, dadosFormulario).subscribe(
       (resposta) => {
-        localStorage.setItem('diasInvestimento', resposta.diasInvestimento);
+        localStorage.setItem('rendimento', resposta.rendimento);
         this.autenticadorService.setToken(resposta.token);
         this.autenticadorService.setUsuario(
           this.dadosFormulario['email']?.value,

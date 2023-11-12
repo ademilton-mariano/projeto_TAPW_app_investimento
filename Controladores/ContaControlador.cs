@@ -25,7 +25,8 @@ public class ContaControlador : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public IActionResult AtualizarConta(int id, [FromBody] Conta conta)
+    public IActionResult AtualizarSaldoConta(int id
+        , [FromBody] int diasInvestimento)
     {
         var contaExistente = _servico.ObterContaPorUsuarioId(id);
         if (contaExistente == null)
@@ -33,8 +34,10 @@ public class ContaControlador : ControllerBase
             return NotFound("Conta não encontrada");
         }
 
-        _servico.AtualizarConta(conta);
-        return Ok("Conta atualizada com sucesso");
+        var conta = _servico.ObterContaPorId(contaExistente.Id);
+
+        var rendimento = _servico.CalcularRendimentoEAtualizarConta(conta, diasInvestimento);
+        return Ok(rendimento);
     }
 
     [HttpDelete("{id}")]

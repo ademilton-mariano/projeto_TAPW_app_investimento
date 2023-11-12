@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AdeInvest.Controladores;
 
-[Authorize]
+
 [ApiController]
 [Route("investimento")]
 public class InvestimentoControlador : ControllerBase

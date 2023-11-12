@@ -9,4 +9,5 @@ public interface IContaRepositorio
     void DeletarConta(int id);
     List<Conta> ObterTodasContas();
     ContaViewModel ObterContaPorUsuarioId(int usuarioId);
+    Conta ObterContaPorId(int id);
 }

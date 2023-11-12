@@ -9,5 +9,6 @@
         public List<Movimentacao> Movimentacao { get; set; }
         public Investimento Investimento { get; set; }
         public DateTime CriadoDataHora { get; set; }
+        public int? DiasInvestimento { get; set; }
     }
 }

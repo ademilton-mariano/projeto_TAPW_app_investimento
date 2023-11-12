@@ -21,7 +21,6 @@ import { AppComponent } from './app.component';
 import { CpfMaskDirective } from './cpf-mask.directive';
 import { LoginComponent } from './paginas/login/login.component';
 import { PaginaInicialComponent } from './paginas/pagina-inicial/pagina-inicial.component';
-import { PerfilComponent } from './paginas/perfil/perfil.component';
 import { NavbarModule } from './componentes/navbar/navbar.module';
 import { SidebarModule } from './componentes/sidebar/sidebar.module';
 import { RequisicoesService } from './servicos/requisicoes.service';
@@ -32,7 +31,6 @@ import { RequisicoesService } from './servicos/requisicoes.service';
     LoginComponent,
     PaginaInicialComponent,
     CpfMaskDirective,
-    PerfilComponent,
   ],
   imports: [
     BrowserModule,

@@ -65,4 +65,9 @@ public class ContaRepositorio : IContaRepositorio
 
         return conta;
     }
+
+    public Conta ObterContaPorId(int id)
+    {
+        return _dados.Conta.FirstOrDefault(p => p.Id == id);
+    }
 }

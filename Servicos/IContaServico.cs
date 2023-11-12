@@ -9,4 +9,6 @@ public interface IContaServico
     void DeletarConta(int id);
     List<Conta> ObterTodasContas();
     ContaViewModel ObterContaPorUsuarioId(int usuarioId);
+    Conta ObterContaPorId(int id);
+    decimal CalcularRendimentoEAtualizarConta(Conta contaExistente, int dias);
 }
