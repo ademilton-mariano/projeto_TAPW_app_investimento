@@ -11,5 +11,6 @@ namespace Plataforma_Investimento_AdeInvest.Models
         public byte InvestimentoRendimentoEmPorcentagem { get; set; }
         public byte InvestimentoResgate { get; set; }
         public string UsuarioClienteNome { get; set; }
+        public int? DiasInvestimento { get; set; }
     }
 }

@@ -24,6 +24,7 @@ import { PaginaInicialComponent } from './paginas/pagina-inicial/pagina-inicial.
 import { NavbarModule } from './componentes/navbar/navbar.module';
 import { SidebarModule } from './componentes/sidebar/sidebar.module';
 import { RequisicoesService } from './servicos/requisicoes.service';
+import { AlertaComponent } from './componentes/alerta/alerta.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { RequisicoesService } from './servicos/requisicoes.service';
     LoginComponent,
     PaginaInicialComponent,
     CpfMaskDirective,
+    AlertaComponent,
   ],
   imports: [
     BrowserModule,

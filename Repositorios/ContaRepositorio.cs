@@ -60,7 +60,8 @@ public class ContaRepositorio : IContaRepositorio
             InvestimentoNome = xConta.Investimento.Tipo,
             InvestimentoRendimentoEmPorcentagem = xConta.Investimento.Rendimento,
             InvestimentoResgate = xConta.Investimento.TempoResgate,
-            UsuarioClienteNome = xConta.UsuarioCliente.Nome
+            UsuarioClienteNome = xConta.UsuarioCliente.Nome,
+            DiasInvestimento = xConta.DiasInvestimento
         };
 
         return conta;

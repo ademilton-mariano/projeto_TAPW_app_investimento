@@ -1,5 +1,6 @@
 <navbar></navbar>
 <sidebar></sidebar>
+<app-alerta *ngIf="mostrarAlerta" [mensagem]="mensagemAlerta"></app-alerta>
 <div class="container-home">
   <div class="container-home-central">
     <div class="container-header">
@@ -33,15 +34,23 @@
           conta.ativo }}</span>
       </div>
       <div class="info-item">
-        <strong>Rendimento do Investimento: </strong>
+        <strong>Rendimento Total  do Investimento: </strong>
         {{ conta.investimentoRendimentoEmPorcentagem }} %
       </div>
       <div class="info-item">
-        <strong>Duração do Investimento: </strong>
+        <strong>Duração Total do Investimento: </strong>
         {{ conta.investimentoResgate }} dias
       </div>
       <div class="info-item">
-        <strong>Valor do Rendimento Atual: </strong>
+        <strong>Data de Início do Investimento: </strong>
+        {{ conta.criadoDataHora }}
+      </div>
+      <div class="info-item">
+        <strong>Duração Atual do Investimento: </strong>
+        {{ conta.diasInvestimento }} dias
+      </div>
+      <div class="info-item">
+        <strong>Valor Atual do Rendimento: </strong>
         R$ {{ rendimento }}
       </div>
     </div>
@@ -66,16 +75,14 @@
     </div>
     <div *ngIf="mostrarResgatarForm">
       <!-- Formulário para Resgatar -->
-      <form [formGroup]="formularioResgatar" (submit)="Resgatar()">
-        <div class="group-input">
-          <div class="text-info">
-            Valor a Resgatar:
-          </div>
-          <input class="input-form" type="number" name="valorResgate" formControlName="valorResgate" required>
+      <form (submit)="Resgatar()">
+        <div class="info-item">
+          <strong>Valor a Resgatar </strong>
+          R$ {{ conta.saldo | number:'1.2-2' }}
         </div>
-        <div class="group-input">
-          <button class="btn-concluir" type="submit">Concluir</button>
-          <button class="btn-cancelar" (click)="FecharResgatarForm()">Cancelar</button>
+        <div class="container-buttons">
+          <button class="btn-investir" type="submit">Concluir</button>
+          <button class="btn-resgatar" (click)="FecharInvestirForm()">Cancelar</button>
         </div>
       </form>
     </div>

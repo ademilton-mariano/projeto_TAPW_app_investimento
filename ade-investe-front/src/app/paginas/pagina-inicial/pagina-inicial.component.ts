@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AutenticadorService } from 'src/app/servicos/autenticador.service';
 
@@ -20,13 +20,15 @@ export class PaginaInicialComponent {
     investimentoId: 0,
     investimentoRendimentoEmPorcentagem: 0,
     investimentoResgate: 0,
+    diasInvestimento: 0,
   };
 
   mostrarInvestirForm: boolean = false;
   mostrarResgatarForm: boolean = false;
   formularioInvestir: FormGroup;
-  formularioResgatar: FormGroup;
   rendimento = localStorage.getItem('rendimento');
+  mensagemAlerta: string = '';
+  mostrarAlerta: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,10 +37,6 @@ export class PaginaInicialComponent {
   ) {
     this.formularioInvestir = this.formBuilder.group({
       valorInvestimento: ['', [Validators.required, Validators.min(0.01)]],
-    });
-
-    this.formularioResgatar = this.formBuilder.group({
-      valorResgate: ['', [Validators.required, Validators.min(0.01)]],
     });
   }
 
@@ -73,6 +71,10 @@ export class PaginaInicialComponent {
   }
 
   AbrirResgatarForm() {
+    if (this.conta.diasInvestimento < this.conta.investimentoResgate) {
+      this.MostrarAlerta('Ainda não é possível resgatar o investimento');
+      return;
+    }
     this.mostrarResgatarForm = true;
   }
 
@@ -98,7 +100,30 @@ export class PaginaInicialComponent {
   }
 
   Resgatar() {
-    // Lógica para resgatar
+    const dadosFormulario = {
+      valor: this.conta.saldo,
+      id: this.conta.id,
+      tipo: 'Resgate',
+    };
+
+    this.requisicoes.criar(`movimentacao`, dadosFormulario).subscribe(
+      (resposta) => {
+        this.ngOnInit();
+        this.FecharResgatarForm();
+      },
+      (error) => {
+        console.error('Erro ao investir', error);
+      }
+    );
+  }
+
+  MostrarAlerta(mensagem: string) {
+    this.mensagemAlerta = mensagem;
+    this.mostrarAlerta = true;
+
+    setTimeout(() => {
+      this.mostrarAlerta = false;
+    }, 8000);
   }
 
   public ObterUsuarioId(): number {

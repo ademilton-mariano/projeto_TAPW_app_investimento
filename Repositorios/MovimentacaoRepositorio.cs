@@ -35,6 +35,7 @@ public class MovimentacaoRepositorio : IMovimentacaoRepositorio
         else
         {
             xConta.Saldo -= xMovimentacao.Valor;
+            xConta.Ativo = false;
         }
 
         _dados.Conta.Update(xConta);

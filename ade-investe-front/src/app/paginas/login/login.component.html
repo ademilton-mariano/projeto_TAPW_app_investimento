@@ -119,15 +119,6 @@
             Campo Obrigatório!
           </label>
         </div>
-        <!-- <div class="group-input">
-          <div class="text-info">
-            Confirme a Senha:
-          </div>
-          <input class="input-form" type="password" name="confirmaSenha" id="confirmaSenha" placeholder="Confirme a Senha" formControlName="confirmaSenha" required>
-          <label *ngIf="formularioCadastro.get('confirmaSenha')?.errors?.['required'] &&  formularioCadastro.get('confirmaSenha')?.touched" class="error-input">
-            Campo Obrigatório!
-          </label>
-        </div> talvez implemente depois -->
         {{ formularioCadastro.errors | json }}
         <div class="group-input">
           <input type="submit" class="btn-login" value="Cadastrar" [ngClass]="{'disabled' : !formularioCadastro.valid}" [disabled]="!formularioCadastro.valid">
